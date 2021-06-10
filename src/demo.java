@@ -1,12 +1,6 @@
-import Locks.Practica8.Ejercicio1.Coche;
-import Locks.Practica8.Ejercicio1.Pasajero;
 import Locks.Practica8.Ejercicio2.GestorAgua;
 import Locks.Practica8.Ejercicio2.Hidrogeno;
 import Locks.Practica8.Ejercicio2.Oxigeno;
-import Monitores.Ejercicio2.Barca;
-import Monitores.Ejercicio2.EstudianteAndroid;
-import Monitores.Ejercicio2.EstudianteIOS;
-import Monitores.Ejercicio2.Remero;
 
 public class demo {
     public static void main(String[] args) throws InterruptedException {
