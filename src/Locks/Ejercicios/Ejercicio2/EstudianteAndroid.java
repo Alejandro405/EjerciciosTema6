@@ -16,8 +16,8 @@ public class EstudianteAndroid extends Thread{
     {
         try{
             for (int i = 0; i < NUM_CUCES; i++) {
-                bote.entraAndroid(id);
-                bote.cruzarRio(id);
+                bote.android(id);
+                bote.saleAndroid(id);
             }
         }catch (InterruptedException e ) {
             System.out.println("Error con la hebra estudiante Android de id: "+id+". MENSAJE: "+e.getMessage());
