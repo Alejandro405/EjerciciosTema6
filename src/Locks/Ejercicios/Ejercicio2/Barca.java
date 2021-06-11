@@ -64,7 +64,7 @@ public class Barca {
             while (!configuracionCorrectaIOS(numAndroid, numIOS + 1) && !hayBarca)
                 esperaSubirIOS.await();
             numIOS++;
-            System.out.println("El estudiante "+id+" con IOS se sube al bote. "+toString());
+            System.out.println("\tEl estudiante "+id+" con IOS se sube al bote. "+toString());
             if (isFull(numAndroid, numIOS)) {//Llama al remero
                 esperaLlenarBarca.signalAll();
                 hayBarca = false;
@@ -84,9 +84,9 @@ public class Barca {
             while(!puedenBajar)
                 esperaBajar.await();
             numAndroid--;
-            System.out.println("\tEl estudiante "+id+" con Adroid baja del bote. "+toString());
+            System.out.println("El estudiante "+id+" con Adroid baja del bote. "+toString());
             if (isEmpty())
-                esperaBajar.signalAll();
+                esperaDesalojo.signalAll();
         }finally{
             l.unlock();
         }
@@ -105,7 +105,7 @@ public class Barca {
             numIOS--;
             System.out.println("El estudiante "+id+" con IOS se baja del bote. "+toString());
             if (isEmpty())
-                esperaBajar.signalAll();
+                esperaDesalojo.signalAll();
         }finally{
             l.unlock();
         }
@@ -130,6 +130,7 @@ public class Barca {
 
             while (!isEmpty())
                 esperaDesalojo.await();
+            System.out.println("\t\nYA SE HAN BAJADO TODOS. PUEDEN SEGUIR CRUZANDO");
             //Cuando se bajan devolvemos el bote, y despertamos a los estudiantes que queden ==> Volvemos al estado inicial
             hayBarca = true;
             puedenBajar = false;

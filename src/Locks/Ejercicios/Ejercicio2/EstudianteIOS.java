@@ -15,10 +15,10 @@ public class EstudianteIOS extends Thread{
     public void run()
     {
         try {
-            for (int i = 0; i < NUM_CUCES; i++) {
-                bote.iphone(id);
-                bote.saleAndroid(id);
-            }
+
+            bote.iphone(id);
+            bote.saleIphone(id);
+
         } catch ( InterruptedException e ) {
             System.out.println("Error con la hebra estudiante IOS de id: "+id+". MENSAJE: "+e.getMessage());
         }
