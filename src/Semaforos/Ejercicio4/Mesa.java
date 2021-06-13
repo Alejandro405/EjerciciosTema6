@@ -44,7 +44,7 @@ public class Mesa {
         Para saber que ingrdiente tiene y cual le falta
      */
     public void liaCigarrillo(Fumador fumador) throws InterruptedException {
-        switch (fumador.getIngrediente()) {
+        /*switch (fumador.getIngrediente()) {
             case TABACO -> {
                 ingredientes[PAPEL].acquire();
                 ingredientes[CERILLAS].acquire();
@@ -63,18 +63,18 @@ public class Mesa {
                 System.out.println("Fumador " + fumador.getId() + " fuma");
                 Thread.sleep(10);//Tiempo de reetraso pasa simular el tiempo que tarda en fumar
             }
-        }
+        }*/
     }
 
     private String int_String(int ingrediente) {
-        String res = switch (ingrediente) {
+        /*String res = switch (ingrediente) {
             case TABACO -> "TABACO";
             case PAPEL -> "PAPEL";
             case CERILLAS -> "CERILLAS";
             default -> null;
-        };
+        };*/
 
 
-        return res;
+        return "";
     }
 }

@@ -64,15 +64,15 @@ public class Mesa {
     }
 
     private String int_String(int ingrediente) {
-        String res = switch (ingrediente) {
+        /*String res = switch (ingrediente) {
             case TABACO -> "TABACO";
             case PAPEL -> "PAPEL";
             case CERILLAS -> "CERILLAS";
             default -> null;
-        };
+        };*/
 
 
-        return res;
+        return "";
     }
 
     public static void main(String[] args) {
