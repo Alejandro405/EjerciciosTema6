@@ -37,7 +37,7 @@ public class Barca {
 		//TODO
 		l.lock();
 		try {
-			while (pos != posBarca || numPasajeros >= capacidad)
+			while (pos != posBarca || numPasajeros >= capacidad)//No tiene en cuenta el trayecto, por eso se suben mientras se entán bajando
 				esperaSubirBarca.await();
 			numPasajeros++;
 			System.out.println("\tEl pasajero de id "+id+" sube a la barca. Hay "+numPasajeros+" posicion de la barca "+posBarca);
@@ -89,12 +89,13 @@ public class Barca {
 		//TODO
 		l.lock();
 		try {
+			finTraecto = true;//Permito que bajen
 			System.out.println("YA HEMOS CRUZADO");
-			finTraecto = true;
-			posBarca = posBarca == 0 ? 1 : 0;
 			esperaBajarBarca.signalAll();
 			while (numPasajeros > 0)
 				esperaDesalojo.await();
+			posBarca = posBarca == 0 ? 1 : 0;//Cambio la barca de orilla
+
 		} finally {
 			l.unlock();
 		}

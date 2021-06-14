@@ -8,7 +8,7 @@ public class Barca {
 	private boolean finTraecto;
 
 	private Semaphore mutex;
-	private Semaphore esperaSubirBarca, esperaBajarBarca;
+	private Semaphore  esperaSubirBarca, esperaBajarBarca;
 	private Semaphore esperaLlenarBarca, esperaDesalojo;
 
 	public Barca(){
@@ -18,6 +18,8 @@ public class Barca {
 		finTraecto = false;
 
 		mutex = new Semaphore(1, true);
+		//esperaBarcaSN = new Semaphore(1, true);
+		//esperaBarcaNS = new Semaphore(0, true);
 		esperaSubirBarca = new Semaphore(1, true);
 		esperaBajarBarca = new Semaphore(0, true);
 		esperaLlenarBarca = new Semaphore(0, true);
@@ -29,11 +31,19 @@ public class Barca {
 	 */
 	public  void subir(int id,int pos) throws InterruptedException{
 		//Si no está en mi orilla o no hay asiento libre, ESPERO
-		while (posBarca != pos || numPasajeros == capacidad)
+		/*if (){
+			while (posBarca != 0)
+				esperaBarcaSN.acquire();
+		} else {
+			while (posBarca != 1)
+				esperaBarcaNS.acquire();
+		}*/
+
+		while (pos == 0 || numPasajeros >= capacidad)
 			esperaSubirBarca.acquire();
 		mutex.acquire();
 		numPasajeros++;
-		System.out.println("\tEl pasajero de id "+id+" sube a la barca. Hay "+numPasajeros);
+		System.out.println("\tEl pasajero de id "+id+" sube a la barca. Hay "+numPasajeros+", posicion de la barca "+posBarca);
 		if (numPasajeros < capacidad){
 			esperaSubirBarca.release();
 		} else if ( numPasajeros == capacidad){
@@ -57,6 +67,7 @@ public class Barca {
 		if (numPasajeros == 0) {
 			esperaDesalojo.release();
 		}
+		mutex.release();
 		return posBarca;
 	}
 	/*
@@ -72,20 +83,21 @@ public class Barca {
 	 * El Capitan indica a los pasajeros que el viaje ha terminado y tienen que bajarse
 	 */
 	public  void finViaje() throws InterruptedException{
-		//TODO
 		System.out.println("FIN DEL VIAJE");
 		mutex.acquire();
 		finTraecto = true;
 		mutex.release();
+
 		esperaBajarBarca.release();
 		while (numPasajeros > 0)
 			esperaDesalojo.acquire();
 		mutex.acquire();
 		System.out.println("YA HAN CRUZADO TODOS");
-		if (posBarca == 0)
+		if (posBarca == 0) {
 			posBarca = 1;
-		else
+		} else {
 			posBarca = 0;
+		}
 
 		mutex.release();
 	}
