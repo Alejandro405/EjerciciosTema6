@@ -12,6 +12,7 @@ public class Coche {
     private int capcacidad;
     private int numClientes;
     private int tiempoEspera;
+
     private Semaphore mutex;//Controla el numero de clientes que entrana al bagon para circiular
     private Semaphore bajar;
     private Semaphore subir;
